@@ -1,17 +1,39 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <p>りんごの値段は、ひとつ{{ appleIncludesTax }}円（税込）ですニャン</p>
+    <p>あなたはリンゴを{{ total }}つ、カゴに入れましたワン</p>
+    <p>りんごの合計値段は、{{ totalApplesIncludesTax }}円（税込）ですニャン</p>
+    <button v-if="stock" @click="addApple">リンゴをカゴに入れるゾウ</button>
+    <p v-else>りんごは売り切れましたニャン・・・</p>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  computed: {
+    ...mapState([
+      'total',
+      'soldout',
+      'stock'
+    ]),
+    ...mapGetters([
+      'appleIncludesTax',
+      'totalApplesIncludesTax'
+    ])
+  },
+  mounted() {
+    this.$store.dispatch('checkStock')
+  },
+  methods: {
+    ...mapMutations([
+      'incrementApple'
+    ]),
+    addApple() {
+      this.incrementApple()
+    }
   }
 }
 </script>
