@@ -1,50 +1,77 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <p>りんごの値段は、ひとつ{{ appleIncludesTax }}円（税込）ですニャン</p>
-    <p>あなたはリンゴを{{ total }}つ、カゴに入れましたワン</p>
-    <p>りんごの合計値段は、{{ totalApplesIncludesTax }}円（税込）ですニャン</p>
-    <button v-if="stock" @click="addApple">リンゴをカゴに入れるゾウ</button>
-    <p v-else>りんごは売り切れましたニャン・・・</p>
+    <p>バナナは、一本{{ banana }}円で、りんごは{{ apple }}円だよ〜</p>
+    <p>安いよ！買ってくかい？今ならセットで{{ banana + apple - 20 }}円でだよ〜！</p>
+    <p>あ、すまんね💦税込みだと、バナナは{{ bananaIncludesTax }}円で、りんごは{{ appleIncludesTax }}円です。</p>
+    <p>お客さんのかごにはいまバナナが{{ totalBanana }}個あって、りんごが{{ totalApple }}個あるね。</p>
+    <p>かごの中の果物の合計金額は、{{ totalAppleIncludesTax + totalBananaIncludesTax }}円です！</p>
+
+    <button v-if="stockBanana"
+    @click="addBanana">バナナをかごに入れる</button>
+    <p v-else>バナナは売り切れちゃったよ💦</p>
+
+    <button v-if="stockApple" @click="addApple">りんごをかごに入れる</button>
+    <p v-else>りんごは売り切れちゃったよ💦</p>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   computed: {
     ...mapState([
-      'total',
-      'soldout',
-      'stock'
+      'apple',
+      'banana',
+      'totalApple',
+      'totalBanana',
+      'stockBanana',
+      'stockApple',
+      'soldout'
     ]),
     ...mapGetters([
       'appleIncludesTax',
-      'totalApplesIncludesTax'
-    ])
+      'bananaIncludesTax',
+      'totalAppleIncludesTax',
+      'totalBananaIncludesTax'
+    ]),
+    // appleIncludesTax() {
+    //   return Math.ceil( this.$store.getters.appleIncludesTax )
+    // },
+    // bananaIncludesTax() {
+    //   return Math.ceil( this.$store.getters.bananaIncludesTax )
+    // },
+
+    // apple() {
+    //   return this.$store.state.apple
+    // },
+    // banana() {
+    //   return this.$store.state.banana
+    // }
   },
   mounted() {
-    this.$store.dispatch('checkStock')
+    this.checkStockApple()
+    this.checkStockBanana()
   },
   methods: {
     ...mapMutations([
-      'incrementApple'
+      'incrementApple',
+      'incrementBanana'
+    ]),
+    ...mapActions([
+      'checkStockApple',
+      'checkStockBanana'
     ]),
     addApple() {
       this.incrementApple()
+    },
+    addBanana() {
+      this.incrementBanana()
     }
   }
 }
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style>
+
 </style>
