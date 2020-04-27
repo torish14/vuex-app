@@ -1,6 +1,6 @@
 # vuex-app
 
-vuexについて学ぼう！
+## vuexについて学ぼう！
 - state
   - 共通のデータを格納する場所
 - getters
@@ -11,6 +11,28 @@ vuexについて学ぼう！
   - 非同期処理を行う
 - modules
   - store を分割して整理する
+
+### state からデータを取得
+```
+this.$store.state.〇〇
+...mapState(['〇〇'])
+```
+
+### getters からデータを取得
+```
+this.$store.getters.〇〇
+...mapGetters(['〇〇'])
+```
+
+### mutations に登録されているメソッドを実行
+```
+this.$store.commit('〇〇')
+```
+
+### actions に登録されているメソッドを実行
+```
+this.$store.dispatch('〇〇')
+```
 
 ## Project setup
 ```
