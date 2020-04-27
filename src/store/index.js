@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  // 共通データを格納する工場
+  //! 共通データを格納する工場
   state: {
     banana: 100,
     apple: 120,
@@ -14,7 +14,7 @@ export default new Vuex.Store({
     stockApple: true,
     stockBanana: true
   },
-  // state にあるデータを加工
+  //! state にあるデータを加工
   getters: {
     appleIncludesTax: state => {
       return Math.floor(state.apple * state.tax);
@@ -29,7 +29,7 @@ export default new Vuex.Store({
       return Math.floor(state.banana * state.totalBanana * state.tax)
     }
   },
-  // state の値を変更する配達員
+  //! state の値を変更する配達員
   mutations: {
     incrementApple: state => {
       state.totalApple ++
@@ -44,7 +44,7 @@ export default new Vuex.Store({
       state.stockBanana = false
     }
   },
-  // 非同期処理
+  //! 非同期処理
   actions: {
     checkStockApple: ({ commit }) => {
       setTimeout(() => {
